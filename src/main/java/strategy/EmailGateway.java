@@ -6,12 +6,12 @@ public class EmailGateway implements NotificationGateway {
 @Override
 public void send (Event e) {
 	
-	System.out.println ("USING EMAIL:::::" );
+	System.out.println (Thread.currentThread ().getName ()+"USING EMAIL:::::" );
 	
 	
-	System.out.println ("Message send to "+e.getRecepient ().getUsername () );
+	System.out.println (Thread.currentThread ().getName ()+"Message send to "+e.getRecepient ().getUsername () );
 	
-	System.out.println ("Message"+ e.toString ());
+	System.out.println (Thread.currentThread ().getName ()+"Message"+ e.toString ());
 
 }
 }

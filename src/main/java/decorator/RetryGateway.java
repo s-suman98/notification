@@ -17,7 +17,7 @@ public RetryGateway (NotificationGateway notificationGateway){
 @Override
 public void send (Event e) {
 	
-	System.out.println ("Retryable send method called..");
+//	System.out.println (Thread.currentThread ().getName ()+"Retryable send method called..");
 	
 	int tried = 0;
 	
