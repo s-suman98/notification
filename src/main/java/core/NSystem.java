@@ -2,6 +2,7 @@ package core;
 
 import decorator.RetryGateway;
 import enums.NotificationType;
+import factory.GatewayFactory;
 import model.Event;
 import strategy.EmailGateway;
 import strategy.NotificationGateway;
@@ -20,15 +21,16 @@ private HashMap< NotificationType, NotificationGateway > gateways;
 
 private final ExecutorService executor;
 
+
 public NSystem () {
 	
 	gateways = new HashMap<> ();
 	
 	this.executor = Executors.newFixedThreadPool (10);
 	
-	gateways.put (NotificationType.EMAIL, new RetryGateway (new EmailGateway ()));
-	gateways.put (NotificationType.PUSH, new RetryGateway (new PushGateway ()));
-	gateways.put (NotificationType.SMS, new RetryGateway (new SmsGateway ()));
+	gateways.put (NotificationType.EMAIL, new RetryGateway (GatewayFactory.getGateway (NotificationType.EMAIL)));
+	gateways.put (NotificationType.PUSH, new RetryGateway (GatewayFactory.getGateway (NotificationType.PUSH)));
+	gateways.put (NotificationType.SMS, new RetryGateway (GatewayFactory.getGateway (NotificationType.SMS)));
 }
 
 
