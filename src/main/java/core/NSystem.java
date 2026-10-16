@@ -2,7 +2,10 @@ package core;
 
 import decorator.RetryGateway;
 import enums.NotificationType;
-import factory.GatewayFactory;
+import factory.EmailNotificationFactory;
+//import factory.GatewayFactory;
+import factory.PushNotificationFactory;
+import factory.SmsNotificationFactory;
 import model.Event;
 import strategy.EmailGateway;
 import strategy.NotificationGateway;
@@ -28,9 +31,13 @@ public NSystem () {
 	
 	this.executor = Executors.newFixedThreadPool (10);
 	
-	gateways.put (NotificationType.EMAIL, new RetryGateway (GatewayFactory.getGateway (NotificationType.EMAIL)));
-	gateways.put (NotificationType.PUSH, new RetryGateway (GatewayFactory.getGateway (NotificationType.PUSH)));
-	gateways.put (NotificationType.SMS, new RetryGateway (GatewayFactory.getGateway (NotificationType.SMS)));
+//	gateways.put (NotificationType.EMAIL, new RetryGateway (GatewayFactory.getGateway (NotificationType.EMAIL)));
+//	gateways.put (NotificationType.PUSH, new RetryGateway (GatewayFactory.getGateway (NotificationType.PUSH)));
+//	gateways.put (NotificationType.SMS, new RetryGateway (GatewayFactory.getGateway (NotificationType.SMS)));
+	
+	gateways.put (NotificationType.EMAIL, new RetryGateway ( new EmailNotificationFactory ().createGateway ()));
+	gateways.put (NotificationType.PUSH, new RetryGateway (new PushNotificationFactory ().createGateway ()));
+	gateways.put (NotificationType.SMS, new RetryGateway (new SmsNotificationFactory ().createGateway ()));
 }
 
 
